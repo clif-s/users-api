@@ -37,4 +37,18 @@ router.get('/:id', function(req, res) {
   });
 });
 
+// POST /users
+// Create a user
+router.post('/', function(req, res) {
+  User.create(req.body, function(err, user) {
+    if (err) {
+      return res.status(500).json({
+        error: "Error creating user: " + err
+      });
+    }
+    
+    return res.status(200).json(user);
+  });
+});
+
 module.exports = router;
