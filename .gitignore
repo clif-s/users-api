@@ -1,2 +1,3 @@
 .sonar
+.idea
 node_modules
