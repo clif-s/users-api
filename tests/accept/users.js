@@ -149,21 +149,19 @@ describe('Users', function() {
       // Accessing database directly found to be preferred to using create operation
       User.create(homer, function (err, user) {
         var id = user._id;
-        User.findOne({_id: id}, function (err, user) {
-          expect(user.username).to.equal("homersimpson");
-          chai.request(url)
-            .delete('/users/' + id)
-            .set('content-type', 'application/json')
-            .end(function (err, res) {
-              res.should.have.status(200);
-              expect(res.body) === ('User deleted');
-              // Double check deletion of user
-              User.findOne({_id: id}, function (err, user) {
-                expect(user).to.equal(null);
-                done();
-              });
+        expect(user.username).to.equal("homersimpson");
+        chai.request(url)
+          .delete('/users/' + id)
+          .set('content-type', 'application/json')
+          .end(function (err, res) {
+            res.should.have.status(200);
+            expect(res.body) === ('User deleted');
+            // Double check deletion of user
+            User.findOne({_id: id}, function (err, user) {
+              expect(user).to.equal(null);
+              done();
             });
-        });
+          });
       });
     });
   });
