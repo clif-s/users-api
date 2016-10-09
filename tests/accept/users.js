@@ -11,6 +11,39 @@ chai.use(chaiHttp);
 
 var url = 'http://127.0.0.1:8001';
 
+function testUserDetails() {
+  return {
+    "gender": "male",
+    "name": {
+      "title": "Mr",
+      "first": "Homer",
+      "last": "Simpson"
+    },
+    "location": {
+      "street": "742 Evergreen Terrace",
+      "city": "Springfield",
+      "state": "n/a",
+      "zip": 12345
+    },
+    "email": "homer@simpson.com",
+    "username": "homersimpson",
+    "password": "secret",
+    "salt": "pylI10wj",
+    "md5": "ddbd6140e188e3bf68ae7ae67345df65",
+    "sha1": "5472d25c99aa65bbf0368168f65d9770b7cacfe6",
+    "sha256": "bh0705aec7393e2269d4593f248e649400d4879b2209f11bb2e012628115a4eb",
+    "registered": 3986717321,
+    "dob": 821761857,
+    "phone": "000-111-2222",
+    "cell": "333-444-555",
+    "PPS": "1231234T",
+    "picture": {
+      "large": "http://image.noelshack.com/fichiers/2013/47/1385035162-dessin-homer.png",
+      "medium": "https://s-media-cache-ak0.pinimg.com/236x/6a/b6/68/6ab668f8c2341f45c8f2d183bbcc8332.jpg",
+      "thumbnail": "https://lh3.googleusercontent.com/-ZU-wVKVB6yw/AAAAAAAAAAI/AAAAAAAAABs/sc3eadR2bFE/s120-c/photo.jpg"
+    }
+  };
+}
 
 describe('Users', function() {
 
@@ -56,6 +89,26 @@ describe('Users', function() {
             done();
           });
       });
+    });
+  });
+
+  describe('/POST /users', function() {
+    it('should create a single user', function(done) {
+      // Create a user in the DB
+      user = testUserDetails();
+      chai.request(url)
+        .post('/users/')
+        .send(user)
+        .end(function(err, res) {
+          if (err) {
+            done(error);
+          } else {
+            res.should.have.status(200);
+            expect(res.body).to.be.a('object');
+            expect(res.body.name.first).to.be.a('string');
+            done();
+          }
+        });
     });
   });
 });
