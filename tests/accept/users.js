@@ -11,7 +11,7 @@ chai.use(chaiHttp);
 
 var url = 'http://127.0.0.1:8001';
 
-function testUserDetails() {
+function testUserHomer() {
   return {
     "gender": "male",
     "name": {
@@ -92,20 +92,23 @@ describe('Users', function() {
     });
   });
 
-  describe('/POST /users', function() {
-    it('should create a single user', function(done) {
+  describe('/POST /users', function () {
+    it('should create a single user', function (done) {
       // Create a user in the DB
-      user = testUserDetails();
+      var homer = testUserHomer();
       chai.request(url)
         .post('/users/')
-        .send(user)
-        .end(function(err, res) {
+        .send(homer)
+        .end(function (err, res) {
           if (err) {
             done(error);
           } else {
             res.should.have.status(200);
             expect(res.body).to.be.a('object');
             expect(res.body.name.first).to.be.a('string');
+            expect(res.body.username).to.equal("homersimpson");
+            // Delete testUserHomer
+            User.remove(res.body);
             done();
           }
         });
