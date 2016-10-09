@@ -160,8 +160,6 @@ describe('Users', function() {
               // Double check deletion of user
               User.findOne({_id: id}, function (err, user) {
                 expect(user).to.equal(null);
-                // Delete testUserHomer
-                User.remove(res.body);
                 done();
               });
             });
