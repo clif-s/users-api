@@ -51,4 +51,31 @@ router.post('/', function(req, res) {
   });
 });
 
+// PUT /users/:id
+// Update a user
+router.put('/:id', function(req, res) {
+  User.findOne({
+    _id: req.params.id
+  }, function(err, user) {
+    if (err) {
+      return res.status(500).json({
+        error: "Error reading user: " + err
+      });
+    }
+
+    if (!user) {
+      return res.status(404).end();
+    }
+
+    User.update({_id: user._id}, req.body, function(err, user) {
+      if (err) {
+        return res.status(500).json({
+          error: "Error updating user: " + err
+        });
+      }
+      return res.status(200).send("User updated");
+    });
+  });
+});
+
 module.exports = router;
