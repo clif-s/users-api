@@ -114,4 +114,31 @@ describe('Users', function() {
         });
     });
   });
+
+  describe('/PUT /users', function () {
+    it('should update a single user', function (done) {
+      // Update a user in the DB
+      var homer = testUserHomer();
+      // Accessing database directly found to be preferred to using create operation
+      User.create(homer, function (err, user) {
+        var id = user._id;
+        chai.request(url)
+          .put('/users/' + id)
+          .set('content-type', 'application/json')
+          .send({
+            'username': 'Duffman'
+          })
+          .end(function (err, res) {
+            res.should.have.status(200);
+            expect(res.body) === ("User updated");
+            User.findOne({_id: id}, function (err, user) {
+              expect(user.username).to.equal("Duffman");
+              // Delete testUserHomer
+              User.remove(res.body);
+              done();
+            });
+          });
+      });
+    });
+  });
 });
