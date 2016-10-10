@@ -203,4 +203,270 @@ Returns a list of Users
   });
   ```
 
+
+**Create User**
+----
+  Creates JSON data about a single user.
+
+* **URL**
+
+  `/users/create`
+
+* **Method:**
+
+  `POST`
+
+*  **URL Params**
+
+   **Required:**
+
+   None
+
+* **Data Params**
+
+  ```javascript
+  {
+    gender: "String",
+    name: {
+      title: "String",
+      first: "String",
+      last: "String"
+    },
+    location: {
+      street: "String",
+      city: "String",
+      state: "String",
+      zip: "Number"
+    },
+    email: "String",
+    username: "String",
+    password: "String",
+    salt: "String",
+    md5: "String",
+    sha1: "String",
+    sha256: "String",
+    registered: "Number",
+    dob: "Number",
+    phone: "String",
+    cell: "String",
+    PPS: "String",
+    picture: {
+      large: "String",
+      medium: "String",
+      thumbnail: "String"
+    }
+  }
+  ```
+* **Success Response:**
+
+  * **Code:** 200 <br />
+    **Content:**
+
+    ```javascript
+    {
+    gender: "male",
+    name: {
+      title: "Mr",
+      first: "Homer",
+      last: "Simpson"
+    },
+    location: {
+      street: "742 Evergreen Terrace",
+      city: "Springfield",
+      state: "n/a",
+      zip: 12345
+    },
+    email: "homer@simpson.com",
+    username: "homersimpson",
+    password: "secret",
+    salt: "pylI10wj",
+    md5: "ddbd6140e188e3bf68ae7ae67345df65",
+    sha1: "5472d25c99aa65bbf0368168f65d9770b7cacfe6",
+    sha256: "bh0705aec7393e2269d4593f248e649400d4879b2209f11bb2e012628115a4eb",
+    registered: 3986717321,
+    dob: 821761857,
+    phone: "000-111-2222",
+    cell: "333-444-555",
+    PPS: "1231234T",
+    picture: {
+      large: "http://image.noelshack.com/fichiers/2013/47/1385035162-dessin-homer.png",
+      medium: "https://s-media-cache-ak0.pinimg.com/236x/6a/b6/68/6ab668f8c2341f45c8f2d183bbcc8332.jpg",
+      thumbnail: "https://lh3.googleusercontent.com/-ZU-wVKVB6yw/AAAAAAAAAAI/AAAAAAAAABs/sc3eadR2bFE/s120-c/photo.jpg"
+    }
+    ```
+
+* **Error Response:**
+
+  * **Code:** 500 INTERNAL SERVER ERROR <br />
+    **Content:**
+
+    ```javascript
+    { "error": "Error creating user" }
+    ```
+
+* **Sample Call:**
+
+  ```javascript
+  $.ajax({
+    url: "/users/create",
+    dataType: "json",
+    type : "POST",
+    success : function(r) {
+      console.log(r);
+    }
+  });
+  ```
+
+
+**Update User**
+----
+  Updates JSON data about a single user.
+
+* **URL**
+
+  `/users/update/:id`
+
+* **Method:**
+
+  `PUT`
+
+*  **URL Params**
+
+   **Required:**
+
+   None
+
+* **Data Params**
+
+  **Any user attributes, e.g. :**
+  ```javascript
+  {
+    gender: "String",
+    name: {
+      title: "String",
+      first: "String",
+      last: "String"
+    },
+    location: {
+      street: "String",
+      city: "String",
+      state: "String",
+      zip: "Number"
+    },
+    email: "String",
+    username: "String",
+    password: "String",
+    salt: "String",
+    md5: "String",
+    sha1: "String",
+    sha256: "String",
+    registered: "Number",
+    dob: "Number",
+    phone: "String",
+    cell: "String",
+    PPS: "String",
+    picture: {
+      large: "String",
+      medium: "String",
+      thumbnail: "String"
+    }
+  }
+  ```
+* **Success Response:**
+
+  * **Code:** 200 <br />
+    **Content:**
+
+    ```javascript
+    {"User updated"}
+    ```
+
+* **Error Response:**
+
+  * **Code:** 500 INTERNAL SERVER ERROR <br />
+    **Content:**
+
+    ```javascript
+    { "error": "Error reading user" }
+    ```
+  * **Code:** 404 INTERNAL SERVER ERROR <br />
+    **Content:**
+
+  * **Code:** 500 INTERNAL SERVER ERROR <br />
+    **Content:**
+
+    ```javascript
+    { "error": "Error updating user" }
+    ```
+
+* **Sample Call:**
+
+  ```javascript
+  $.ajax({
+    url: "/users/update/:id",
+    dataType: "json",
+    type : "PUT",
+    success : function(r) {
+      console.log(r);
+    }
+  });
+  ```
+
+
+**Delete User**
+----
+  Deletes JSON data about a single user.
+
+* **URL**
+
+  `/users/delete/:id`
+
+* **Method:**
+
+  `DELETE`
+
+*  **URL Params**
+
+   **Required:**
+
+   `id=[string]`
+
+* **Data Params**
+
+  None
+
+* **Success Response:**
+
+  * **Code:** 200 <br />
+    **Content:**
+
+    ```javascript
+    {"User deleted"}
+    ```
+
+* **Error Response:**
+
+  * **Code:** 500 INTERNAL SERVER ERROR <br />
+    **Content:**
+
+    ```javascript
+    { "error": "Error reading user" }
+    ```
+  * **Code:** 404 INTERNAL SERVER ERROR <br />
+    **Content:**
+
+
+* **Sample Call:**
+
+  ```javascript
+  $.ajax({
+    url: "/users/delete/:id",
+    dataType: "json",
+    type : "DELETE",
+    success : function(r) {
+      console.log(r);
+    }
+  });
+  ```
+
 Inspired by https://gist.github.com/iros/3426278
