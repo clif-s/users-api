@@ -97,7 +97,7 @@ describe('Users', function() {
       // Create a user in the DB
       var homer = testUserHomer();
       chai.request(url)
-        .post('/users/')
+        .post('/users/create')
         .send(homer)
         .end(function (err, res) {
           if (err) {
@@ -123,7 +123,7 @@ describe('Users', function() {
       User.create(homer, function (err, user) {
         var id = user._id;
         chai.request(url)
-          .put('/users/' + id)
+          .put('/users/update/' + id)
           .set('content-type', 'application/json')
           .send({
             'username': 'Duffman'
@@ -151,7 +151,7 @@ describe('Users', function() {
         var id = user._id;
         expect(user.username).to.equal("homersimpson");
         chai.request(url)
-          .delete('/users/' + id)
+          .delete('/users/delete/' + id)
           .set('content-type', 'application/json')
           .end(function (err, res) {
             res.should.have.status(200);

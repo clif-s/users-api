@@ -39,7 +39,7 @@ router.get('/:id', function(req, res) {
 
 // POST /users
 // Create a user
-router.post('/', function(req, res) {
+router.post('/create', function(req, res) {
   User.create(req.body, function(err, user) {
     if (err) {
       return res.status(500).json({
@@ -53,7 +53,7 @@ router.post('/', function(req, res) {
 
 // PUT /users/:id
 // Update a user
-router.put('/:id', function(req, res) {
+router.put('/update/:id', function(req, res) {
   User.findOne({
     _id: req.params.id
   }, function(err, user) {
@@ -80,7 +80,7 @@ router.put('/:id', function(req, res) {
 
 // DELETE /users/:id
 // Delete a user
-router.delete('/:id', function(req, res) {
+router.delete('/delete/:id', function(req, res) {
   User.remove({
     _id: req.params.id
   }, function(err, user) {
